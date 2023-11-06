@@ -5,6 +5,9 @@ const port = 8000;
 //library for layouts in views 
 const expressLayouts = require('express-ejs-layouts');
 
+//connecting to mongodb database
+const db = require('./config/mongoose');
+
 //for static style and JS files
 app.use(express.static('./assets'));
 
