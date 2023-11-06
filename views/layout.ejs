@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        <%= title %>
+    </title>
+    <link rel="stylesheet" href="/CSS/layout.css">
+    <%- style %>
+</head>
+
+<body>
+
+    <%- include('_header'); %> <!--partial in views -->
+
+    <%- body %> <!--using layouts in views -->
+
+    <%- include('_footer'); %>
+
+    <script src="/JS/layout.js"></script>
+    <%- script %>
+</body>
+
+</html>
