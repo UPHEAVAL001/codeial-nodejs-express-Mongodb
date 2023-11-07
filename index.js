@@ -1,4 +1,5 @@
 const express = require('express');
+const cookieParser = require('cookie-parser');
 const app = express();
 const port = 8000;
 
@@ -10,8 +11,11 @@ const db = require('./config/mongoose');
 
 //for static style and JS files
 app.use(express.static('./assets'));
-
 app.use(expressLayouts);
+//to read from the post requests
+app.use(express.urlencoded());
+
+app.use(cookieParser());
 
 //extract style and scripts from sub-pages into the layout
 app.set('layout extractStyles' , true);
