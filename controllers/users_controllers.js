@@ -6,9 +6,24 @@ const User = require('../models/user');
 module.exports.profile = function (req, res) {
     //return res.end('<h1>User Profile</h1>');
 
-    return res.render('profile', {
-        "title": "Akhil"
-    });
+    if(req.cookies.user_id){
+        User.findById(req.cookies.user_id)
+        .then(function(user){
+            if(user){
+                return res.render('user_profile',{
+                    "title": "User Profile Page Session",
+                    "user_data" : user
+                });
+            }
+            return res.redirect('users/sign-in');
+        })
+        .catch(function (err) {
+            console.log('error in finding user for signing in', err);
+        });
+
+    }else{
+        return res.redirect('/users/sign-in');
+    }
 }
 
 // to render sign up page
@@ -66,18 +81,42 @@ module.exports.create = function(req, res){
 
 // sign in and create a session for the user
 module.exports.createSession = function(req,res){
-    
-    User.find({email : req.body.email , password : req.body.password})
+    //steps to authenticate
+
+    //find the user
+    User.findOne({email : req.body.email})
     .then(function(user){
-        return res.render('user_session',{
-            "title": "Codeial | User Session",
-            "user_data" : user
-        });
+        //handle user found
+        if(user){
+            //password doesn't match
+            if(user.password != req.body.password){
+                return res.redirect('back');
+            }
+            // handle session creation
+            res.cookie('user_id' , user._id);
+
+            return res.redirect('/users/profile');
+
+
+        }else{
+            //handle user not found
+            return res.redirect('back');
+        }
     })
     .catch(function(err){
-        console.log('Error in user Authentication' , err);
+        console.log('Error in finding user in signing in' , err);
     });
+   
+};
 
-    
+module.exports.signOut = function(req,res){
+
+    // way to expire a cookie
+    // res.cookie('user_id' , req.cookies.user_id , {expires: new Date(27373829000)});
+
+    // works same but clears the cookie without any specific time 
+    res.clearCookie('user_id', { path: '/' });
+
+    return res.redirect('/users/sign-in');
 };
 
