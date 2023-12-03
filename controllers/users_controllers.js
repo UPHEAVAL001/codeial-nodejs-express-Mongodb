@@ -93,7 +93,7 @@ module.exports.createSession = function(req,res){
                 return res.redirect('back');
             }
             // handle session creation
-            res.cookie('user_id' , user._id);
+            res.cookie('user_id' , user.id);
 
             return res.redirect('/users/profile');
 
@@ -112,7 +112,7 @@ module.exports.createSession = function(req,res){
 module.exports.signOut = function(req,res){
 
     // way to expire a cookie
-    // res.cookie('user_id' , req.cookies.user_id , {expires: new Date(27373829000)});
+    //res.cookie('user_id' , req.cookies.user_id , {expires: new Date(27373829000)});
 
     // works same but clears the cookie without any specific time 
     res.clearCookie('user_id', { path: '/' });
