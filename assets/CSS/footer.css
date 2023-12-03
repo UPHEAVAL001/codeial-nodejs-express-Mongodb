@@ -1,0 +1,22 @@
+footer {
+  display: flex;
+  justify-content: center;
+  color: whitesmoke;
+  font-family: sans-serif;
+  background-color: #a39f9a;
+  line-height: 2rem;
+  align-items: center;
+}
+
+.bottom-left {
+  display: flex;
+  justify-content: space-between;
+  width: 50%;
+  align-items: center;
+}
+.bottom-left a {
+  text-decoration: none;
+  color: black;
+}
+
+/*# sourceMappingURL=footer.css.map */

@@ -1,0 +1,10 @@
+
+<div class="comment-card">
+    <hr />
+    <p><%= comment.user.name %> =></p>
+    <p><%= comment.content %></p>
+    <p>Commented At => <%= comment.createdAt %></p>
+    <% if (locals.user && locals.user.id == comment.user.id) { %>
+        <button><a href="/comments/destroy/<%= comment.id %>">Delete Comment</a></button>
+    <%}%>
+</div>
